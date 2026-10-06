@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>R-Defender case study – Jefferson Adriano</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --red: #ff2938;
+        --ink: #292b34;
+        --bg: #eee;
+        --card: #fff;
+        --text: #292b34;
+        --mute: #5b5e6b;
+        --line: #cfcfd4;
+        --onink: #eee;
+        --soft: #b8bbc7;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #1b1c22;
+          --card: #292b34;
+          --text: #eee;
+          --mute: #a4a7b3;
+          --line: #3b3d48;
+          --ink: #101116;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #1b1c22;
+        --card: #292b34;
+        --text: #eee;
+        --mute: #a4a7b3;
+        --line: #3b3d48;
+        --ink: #101116;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font:
+          400 17px/1.6 "DM Sans",
+          system-ui,
+          sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      a {
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 3px solid var(--red);
+        outline-offset: 3px;
+      }
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      section {
+        padding: 80px 0;
+      }
+      h2 {
+        font-size: clamp(30px, 4.4vw, 48px);
+        font-weight: 800;
+        margin-bottom: 18px;
+        max-width: 20ch;
+      }
+      h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .lead {
+        max-width: 62ch;
+        color: var(--mute);
+      }
+      .btn {
+        display: inline-block;
+        padding: 13px 24px;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        border: 2px solid var(--ink);
+      }
+      .btn.red {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+      }
+      nav {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 5;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+      }
+      nav .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 68px;
+      }
+      .logo {
+        font:
+          800 20px "Bricolage Grotesque",
+          sans-serif;
+        text-decoration: none;
+        display: flex;
+        place-items: center;
+      }
+      .logo i {
+        display: inline-block;
+        width: 32px;
+        height: 39px;
+        background-image: url("asset/logo-icon.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-right: 8px;
+      }
+      nav ul {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+        padding: 0;
+      }
+      nav a.l {
+        text-decoration: none;
+        font-weight: 500;
+      }
+      nav a.l:hover,
+      nav a.on {
+        color: var(--red);
+      }
+      .back {
+        display: inline-block;
+        margin: 28px 0 0;
+        color: var(--mute);
+        text-decoration: none;
+        font-size: 15px;
+      }
+      .back:hover {
+        color: var(--red);
+      }
+      /* hero */
+      .hero {
+        padding: 40px 0 72px;
+      }
+      .hero h1 {
+        font-size: clamp(40px, 7vw, 88px);
+        font-weight: 800;
+        max-width: 15ch;
+      }
+      .hero h1 span {
+        color: var(--red);
+      }
+      .hero .lead {
+        font-size: 20px;
+        margin: 24px 0 36px;
+        color: var(--text);
+      }
+      .shot {
+        border: 2px dashed var(--mute);
+        border-radius: 20px;
+        display: grid;
+        place-items: top;
+        text-align: center;
+        color: var(--mute);
+        font-size: 15px;
+        padding: 24px;
+        min-height: 260px;
+        background: rgba(127, 127, 140, 0.08);
+      }
+      .hero .shot {
+        min-height: 380px;
+      }
+      /* snapshot */
+      .snap {
+        background: var(--ink);
+        color: var(--onink);
+      }
+      .snap dl {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px 24px;
+      }
+      .snap dt {
+        color: var(--soft);
+        font-size: 14px;
+      }
+      .snap dd {
+        margin: 2px 0 0;
+        font-weight: 500;
+      }
+      .snap .role {
+        margin-top: 40px;
+        padding-top: 28px;
+        border-top: 1px solid #4a4d5a;
+        max-width: 70ch;
+        color: var(--soft);
+      }
+      .snap .role b {
+        color: #fff;
+      }
+      .ph {
+        display: inline-block;
+        border: 1px dashed var(--red);
+        color: var(--red);
+        border-radius: 6px;
+        padding: 0 8px;
+        font-size: 15px;
+      }
+      /* generic grids */
+      .g2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .g3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .g4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 26px;
+      }
+      .card p,
+      .card li {
+        color: var(--mute);
+        font-size: 16px;
+      }
+      .card.red {
+        background: var(--red);
+        color: #fff;
+      }
+      .card.red p {
+        color: #fff;
+      }
+      .tag {
+        display: inline-block;
+        background: var(--red);
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        border-radius: 999px;
+        padding: 2px 12px;
+        margin-bottom: 12px;
+      }
+      ul.plain {
+        list-style: none;
+        padding: 0;
+      }
+      ul.plain li {
+        padding: 7px 0;
+        border-top: 1px solid var(--line);
+      }
+      ul.plain li:first-child {
+        border-top: 0;
+      }
+      .hmw {
+        margin-top: 36px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 20px;
+        padding: 32px;
+        font:
+          700 clamp(21px, 2.6vw, 30px)/1.2 "Bricolage Grotesque",
+          sans-serif;
+      }
+      .callout {
+        margin-top: 32px;
+        border-left: 5px solid var(--red);
+        padding: 6px 0 6px 20px;
+        max-width: 64ch;
+        font-weight: 500;
+      }
+      .note {
+        margin-top: 24px;
+        border: 1px dashed var(--mute);
+        border-radius: 14px;
+        padding: 16px 20px;
+        color: var(--mute);
+        font-size: 16px;
+        max-width: 70ch;
+      }
+      .note b {
+        color: var(--text);
+      }
+      /* insight rows */
+      .ins {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+        background: var(--card);
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 16px;
+      }
+      .ins > div {
+        padding: 24px;
+        border-left: 1px solid var(--line);
+      }
+      .ins > div:first-child {
+        border-left: 0;
+      }
+      .ins small {
+        display: block;
+        color: var(--red);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .ins p {
+        font-size: 16px;
+        color: var(--mute);
+      }
+      .ins p.k {
+        color: var(--text);
+        font-weight: 700;
+      }
+      /* flow */
+      .flow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 24px 0;
+      }
+      .flow span {
+        background: var(--card);
+        border-radius: 999px;
+        padding: 8px 18px;
+        font-weight: 500;
+      }
+      .flow span.s {
+        background: var(--red);
+        color: #fff;
+      }
+      .flow i {
+        font-style: normal;
+        color: var(--mute);
+      }
+      .dark .flow span {
+        background: #363944;
+        color: #fff;
+      }
+      .dark .flow span.s {
+        background: var(--red);
+      }
+      /* IA tree */
+      pre {
+        font:
+          500 15px/1.65 ui-monospace,
+          Menlo,
+          monospace;
+        background: var(--ink);
+        color: #eee;
+        border-radius: 20px;
+        padding: 28px;
+        overflow-x: auto;
+      }
+      /* before after */
+      .ba .card h3 {
+        font-size: 26px;
+      }
+      .ba .before {
+        background: transparent;
+        border: 2px solid var(--line);
+      }
+      .ba .after {
+        border: 2px solid var(--red);
+      }
+      .dark {
+        background: var(--ink);
+        color: var(--onink);
+      }
+      .dark .lead,
+      .dark .card p,
+      .dark .card li {
+        color: var(--soft);
+      }
+      .dark .card {
+        background: #363944;
+      }
+      .dark .shot {
+        border-color: #6a6d7d;
+        color: var(--soft);
+      }
+      .tbl {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: var(--card);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .tbl th,
+      .tbl td {
+        text-align: left;
+        padding: 12px 18px;
+        font-size: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .tbl th {
+        color: var(--red);
+      }
+      .tbl td:last-child {
+        color: var(--mute);
+      }
+      .scroll {
+        overflow-x: auto;
+      }
+      .sw {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .sw div {
+        width: 84px;
+        height: 64px;
+        border-radius: 12px;
+        display: flex;
+        align-items: flex-end;
+        padding: 8px;
+        font-size: 12px;
+        color: #fff;
+      }
+      .end {
+        background: var(--red);
+        color: #fff;
+      }
+      .end h2 {
+        max-width: 14ch;
+      }
+      .end .btn {
+        border-color: #fff;
+        color: #fff;
+        margin: 8px 10px 0 0;
+      }
+      .end .btn.solid {
+        background: #fff;
+        color: var(--red);
+      }
+      footer {
+        background: var(--ink);
+        color: var(--soft);
+        padding: 28px 0;
+        font-size: 15px;
+      }
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      @media (max-width: 860px) {
+        section {
+          padding: 56px 0;
+        }
+        .g2,
+        .g3,
+        .g4,
+        .ins,
+        .snap dl {
+          grid-template-columns: 1fr;
+        }
+        .ins > div {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+        .ins > div:first-child {
+          border-top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="wrap">
+        <a class="logo" href="Index.html"><i></i>Jefferson Adriano</a>
+        <ul>
+          <li><a class="l" href="Index.html">Home</a></li>
+          <li><a class="l on" href="#" aria-current="page">Portfolio</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="wrap">
+        <!-- <a class="back" href="#">← All projects</a> -->
+        <h1 style="margin-top: 24px">
+          R-Defender: unifying cybersecurity knowledge and
+          <span>collaboration</span> across Rakuten
+        </h1>
+        <p class="lead">
+          Redesigning an internal cybersecurity platform to consolidate security
+          resources, improve discoverability, strengthen security awareness, and
+          encourage collaboration across departments.
+        </p>
+        <div class="shot">
+          <img
+            src="asset/hero-img.png"
+            alt="Screenshot of R-Defender homepage"
+            width="100%"
+            height="auto"
+          />>
+        </div>
+        <div
+          style="padding: 56.25% 0 0 0; position: relative; margin-top: 40px"
+        >
+          <iframe
+            src="https://player.vimeo.com/video/1020419700?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+            frameborder="0"
+            allow="
+              autoplay;
+              fullscreen;
+              picture-in-picture;
+              clipboard-write;
+              encrypted-media;
+              web-share;
+            "
+            referrerpolicy="strict-origin-when-cross-origin"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            "
+            title="R-Defender Teaser Video"
+          ></iframe>
+        </div>
+        <script src="https://player.vimeo.com/api/player.js"></script>
+      </div>
+    </header>
+
+    <section class="snap">
+      <div class="wrap">
+        <dl>
+          <div>
+            <dt>Project</dt>
+            <dd>R-Defender</dd>
+          </div>
+          <div>
+            <dt>Company</dt>
+            <dd>Rakuten</dd>
+          </div>
+          <div>
+            <dt>Role</dt>
+            <dd>Product / UX/UI designer / Frontend</dd>
+          </div>
+          <div>
+            <dt>Platform</dt>
+            <dd>Internal web application</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>Cybersecurity, knowledge management, collaboration</dd>
+          </div>
+          <div>
+            <dt>Duration</dt>
+            <dd>2 years</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>Design / product manager / engineering / stakeholders</dd>
+          </div>
+          <div>
+            <dt>My contribution</dt>
+            <dd>
+              UX research, UX audit, IA, UX/UI, design system, prototyping,
+              frontend,
+            </dd>
+          </div>
+        </dl>
+        <p class="role">
+          <b>My role.</b> I was responsible for improving the overall user
+          experience, information architecture, navigation, visual language, and
+          interaction patterns while consolidating multiple cybersecurity
+          resources into a more unified internal platform.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Why the product existed</h2>
+        <p class="lead">
+          Rakuten employees had access to many cybersecurity resources: tools,
+          vendors, products, services, news sources, and internal communities.
+          But information and workflows were spread across different platforms,
+          and departments rarely met in the same place.
+        </p>
+        <div class="callout">
+          Business opportunity: create a centralized cybersecurity ecosystem
+          where employees can discover trusted resources, share knowledge,
+          collaborate with colleagues, and make better-informed security
+          decisions.
+        </div>
+
+        <h2 style="margin-top: 72px">Four problems, grouped</h2>
+        <div class="g4">
+          <div class="card">
+            <span class="tag">Problem 1</span>
+            <h3>Fragmented information</h3>
+            <p>
+              Vendors, products, services, CVEs, open-source projects, and news
+              lived in different sources.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Problem 2</span>
+            <h3>Poor discoverability</h3>
+            <p>
+              Employees relied on familiar tools and didn't know other resources
+              existed.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Problem 3</span>
+            <h3>Security risk</h3>
+            <p>
+              Unauthorized software and inappropriate storage of sensitive
+              information created potential risk.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Problem 4</span>
+            <h3>Low collaboration</h3>
+            <p>
+              Employees and departments had few chances to share security
+              knowledge.
+            </p>
+          </div>
+        </div>
+        <div class="hmw">
+          How might we create a trusted, centralized cybersecurity platform that
+          makes security information easier to discover while encouraging
+          employees to share knowledge and collaborate across departments?
+        </div>
+      </div>
+    </section>
+
+    <section class="dark">
+      <div class="wrap">
+        <h2>Research and discovery</h2>
+        <p class="lead">
+          I don't design from assumptions. Here is the evidence I actually had.
+        </p>
+        <div class="g2" style="margin-top: 28px">
+          <div class="card">
+            <h3>Methods used</h3>
+            <p style="margin-bottom: 10px">
+              List only what you genuinely did. Delete the rest.
+            </p>
+            <ul class="plain">
+              <li>Stakeholder interviews</li>
+              <li>Existing requirements analysis</li>
+              <li>UX audit</li>
+              <li>Competitive research</li>
+              <li>Existing platform analysis</li>
+              <li>User interviews</li>
+              <!-- <li>User interviews <span class="ph">only if conducted</span></li> -->
+              <li>Analytics</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Research limitation</h3>
+            <p>
+              User research was limited during the initial project phase, so I
+              supplemented available stakeholder requirements with UX auditing,
+              platform analysis, and later validation opportunities.
+            </p>
+            <p style="margin-top: 12px">
+              Being open about this makes the rest of the case study more
+              credible.
+            </p>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 72px">Key insights</h2>
+        <p class="lead">
+          Each insight follows evidence, then insight, then design implication.
+        </p>
+        <div class="ins">
+          <div>
+            <small>Evidence</small>
+            <p>
+              Users relied on familiar internal tools instead of exploring other
+              cybersecurity resources.
+            </p>
+          </div>
+          <div>
+            <small>Insight</small>
+            <p class="k">
+              The problem wasn't missing functionality. It was poor
+              discoverability.
+            </p>
+          </div>
+          <div>
+            <small>Design implication</small>
+            <p>
+              A central discovery experience with clear categories, search,
+              recommendations, and context.
+            </p>
+          </div>
+        </div>
+        <div class="ins">
+          <div>
+            <small>Evidence</small>
+            <p>
+              Products, vendors, CVEs, services, and source projects were hard
+              to reach through one experience.
+            </p>
+          </div>
+          <div>
+            <small>Insight</small>
+            <p class="k">Users needed a single trusted entry point.</p>
+          </div>
+          <div>
+            <small>Design implication</small>
+            <p>
+              Consolidate the cybersecurity catalogs into one information
+              architecture.
+            </p>
+          </div>
+        </div>
+        <div class="ins">
+          <div>
+            <small>Evidence</small>
+            <p>
+              Employees and departments had limited ways to share security
+              knowledge.
+            </p>
+          </div>
+          <div>
+            <small>Insight</small>
+            <p class="k">
+              The platform had to support participation, not just reading.
+            </p>
+          </div>
+          <div>
+            <small>Design implication</small>
+            <p>
+              Profiles, communities, comments, recognition, activity feeds, and
+              notifications.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Product strategy</h2>
+        <p class="lead">
+          From business goals to user goals to the product loop.
+        </p>
+        <div class="g3" style="margin-top: 28px">
+          <div class="card">
+            <h3>Business goals</h3>
+            <ul class="plain">
+              <li>Increase cybersecurity awareness</li>
+              <li>Reduce risky software behavior</li>
+              <li>Centralize trusted information</li>
+              <li>Improve collaboration</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>User goals</h3>
+            <ul class="plain">
+              <li>Find information</li>
+              <li>Understand security risks</li>
+              <li>Discover approved resources</li>
+              <li>Share knowledge</li>
+              <li>Connect with colleagues</li>
+            </ul>
+          </div>
+          <div class="card red">
+            <h3>Product strategy</h3>
+            <p>The loop every feature serves:</p>
+            <p
+              style="
+                font:
+                  700 22px/1.4 &quot;Bricolage Grotesque&quot;,
+                  sans-serif;
+                margin-top: 10px;
+              "
+            >
+              Discover → Learn → Evaluate → Share → Collaborate
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top: 0">
+      <div class="wrap">
+        <h2>Information architecture</h2>
+        <p class="lead" style="margin-bottom: 24px">
+          I structured the platform around what people do (discover, learn,
+          collaborate, connect) rather than mirroring Rakuten's internal org
+          structure.
+        </p>
+        <pre>
+R-Defender
+├── My profile
+│    ├── Posts
+│    ├── Comments
+│    ├── Activities
+├── Newsfeed
+│   ├── Security news
+│   └── Articles
+├── Dashboard
+├── Security Champions
+├── Defenders
+│   ├── Employee search
+│   └── Organization hierarchy
+├── Catalogs
+│   ├── Vendors
+│   ├── Products
+│   ├── Services
+│   ├── CVEs
+│   └── Source projects
+├── Communities
+│   ├── Groups
+│   ├── Discussions
+│   └── Knowledge sharing
+└── Recognition</pre
+        >
+        <div class="note">
+          <b>Wireframe:</b> Here are some of the wireframes I created at the
+          early stage of the project to validate the information architecture.
+          <img
+            src="asset/wireframe.jpg"
+            alt="Wireframe of R-Defender homepage"
+            width="100%"
+            height="auto"
+            style="margin-top: 12px; border-radius: 12px"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="dark">
+      <div class="wrap">
+        <h2>Before and after</h2>
+        <div class="g2 ba" style="margin-top: 24px">
+          <div class="card before">
+            <h3>Before</h3>
+            <ul class="plain">
+              <li>Fragmented resources</li>
+              <li>Difficult discovery</li>
+              <li>Inconsistent navigation</li>
+              <li>Limited social interaction</li>
+              <li>Multiple information sources</li>
+            </ul>
+          </div>
+          <div class="card after">
+            <h3>After</h3>
+            <ul class="plain">
+              <li>Centralized cybersecurity hub</li>
+              <li>Categorized catalogs</li>
+              <li>Unified navigation</li>
+              <li>News aggregation</li>
+              <li>Employee communities and social interactions</li>
+              <li>Personalized profile and notifications</li>
+            </ul>
+          </div>
+        </div>
+        <div class="g2" style="margin-top: 20px">
+          <div class="shot">
+            <img
+              src="asset/old-homepage.jpg"
+              alt="Screenshot of R-Defender homepage"
+              width="100%"
+              height="auto"
+            />
+          </div>
+          <div class="shot">
+            <img
+              src="asset/new-homepage.jpg"
+              alt="Screenshot of R-Defender homepage"
+              width="100%"
+              height="auto"
+            />
+          </div>
+        </div>
+
+        <h2 style="margin-top: 72px">
+          Core user flow: discover a security product
+        </h2>
+        <div class="flow">
+          <span>Dashboard</span><i>→</i><span>Catalog</span><i>→</i
+          ><span>Products</span><i>→</i><span>Search / filter</span><i>→</i
+          ><span>Product details</span><i>→</i><span>Reviews and tips</span
+          ><i>→</i><span>Share with colleagues</span><i>→</i
+          ><span class="s">Discussion</span>
+        </div>
+        <p class="lead">
+          The redesigned flow reduces the need to leave the platform to research
+          security products, and gives employees a way to validate and share
+          information internally.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Features, grouped by user need</h2>
+        <div class="g3" style="margin-top: 24px">
+          <div class="card">
+            <h3>Discover</h3>
+            <p>
+              Security catalogs, vendors, products, services, CVEs, open-source
+              projects.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Stay informed</h3>
+            <p>Newsfeed, security articles, notifications.</p>
+          </div>
+          <div class="card">
+            <h3>Collaborate</h3>
+            <p>Communities, comments, sharing, discussions.</p>
+          </div>
+          <div class="card">
+            <h3>Connect</h3>
+            <p>Employee search, organization hierarchy, profiles.</p>
+          </div>
+          <div class="card">
+            <h3>Participate</h3>
+            <p>Recognition, points, activities.</p>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 72px">Three key experiences</h2>
+        <div class="g3" style="margin-top: 24px">
+          <div class="card">
+            <span class="tag">Dashboard</span>
+            <p>
+              <b>Problem.</b> Many kinds of information competed for attention
+              at the starting point.
+            </p>
+            <p style="margin-top: 8px">
+              <b>Decision.</b> Build around the most relevant actions: discover,
+              monitor updates, open catalogs, engage with the community.
+            </p>
+            <p style="margin-top: 8px">
+              <b>Result.</b> The central discovery and engagement point.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Catalog</span>
+            <p><b>Problem.</b> Hard to find trusted cybersecurity resources.</p>
+            <p style="margin-top: 8px">
+              <b>Solution.</b> One structure: vendor, product, service, CVE,
+              source project. With search, filters, categories, reviews, tips,
+              and related resources.
+            </p>
+            <p style="margin-top: 8px">
+              <b>Principle.</b> Make complex information discoverable without
+              overwhelming people.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Community</span>
+            <p>
+              <b>Profile.</b> Posts, comments, activities, points, recognition.
+            </p>
+            <p style="margin-top: 8px">
+              <b>Community.</b> Discover, join, discuss, share, learn.
+            </p>
+            <p style="margin-top: 8px">
+              <b>Decision.</b> Social patterns turn a passive repository into an
+              active cybersecurity community.
+            </p>
+          </div>
+        </div>
+        <div class="g3" style="margin-top: 20px">
+          <div class="shot">
+            <img
+              src="asset/dashboard.jpg"
+              alt="Screenshot of R-Defender dashboard"
+              width="100%"
+              height="auto"
+            />
+          </div>
+          <div class="shot">
+            <img
+              src="asset/catalog.jpg"
+              alt="Screenshot of R-Defender catalog"
+              width="100%"
+              height="auto"
+            />
+          </div>
+          <div class="shot">
+            <img
+              src="asset/profile.jpg"
+              alt="Screenshot of R-Defender profile"
+              width="100%"
+              height="auto"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="snap">
+      <div class="wrap">
+        <h2>Design system and visual language</h2>
+        <p class="lead" style="color: var(--soft)">
+          The platform covered several product areas and information types, so I
+          set reusable components and visual rules to keep it consistent and
+          scalable.
+        </p>
+        <div class="g2" style="margin-top: 28px">
+          <div>
+            <h3>System contents</h3>
+            <p style="color: var(--soft)">
+              Typography, color system, grid, buttons, cards, forms, navigation,
+              tables, notifications, tags.
+            </p>
+            <div class="sw">
+              <div style="background: #028cff">Primary</div>
+              <div style="background: #fd7d00">Surface</div>
+              <div style="background: #292b34; border: 1px solid #e8ecee">
+                Base
+              </div>
+              <div style="background: #eee; color: #292b34">Light</div>
+            </div>
+            <p class="note" style="color: var(--soft)">
+              <img
+                src="asset/logo.jpg"
+                alt="Logo-R-Defender"
+                width="100%"
+                height="auto"
+              />
+            </p>
+          </div>
+          <div>
+            <h3>Branding</h3>
+            <p style="color: var(--soft); margin-bottom: 12px">
+              Initially, red was proposed, but I explained t hat its strong
+              associations wit h urgency and errors could create unintended
+              signals in t he UI. I recommended royal blue instead, as it
+              conveys trust, stability, and energy— making it more suitable for
+              a user-friendly product.
+            </p>
+            <p style="color: var(--soft); margin-bottom: 12px">
+              The logo combines multiple shields, circuit elements, and t he
+              R-Defenders wordmark; t he eight dots represent t he eight team
+              members who built t he platform.
+            </p>
+            <p style="color: var(--soft); margin-bottom: 12px">
+              Brand attributes: secure, intelligent, modern, technical, trusted.
+              Each one maps to a design choice:
+            </p>
+            <ul class="plain" style="color: var(--soft)">
+              <li>Dark and light contrast for focus</li>
+              <li>Strong visual hierarchy</li>
+              <li>Security-oriented iconography</li>
+              <li>Clear data presentation</li>
+              <li>Controlled use of visual effects</li>
+            </ul>
+            <p style="margin-top: 12px; color: var(--soft)">
+              The theme supports the product's purpose. It isn't decoration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Usability testing</h2>
+        <p class="lead">
+          Use real tasks, and describe only the testing you actually ran.
+        </p>
+        <div class="scroll">
+          <table class="tbl">
+            <tr>
+              <th>Task</th>
+              <th>Success criteria</th>
+            </tr>
+            <tr>
+              <td>Find a security product approved for your organization</td>
+              <td>Finds it, identifies relevant information, no assistance</td>
+            </tr>
+            <tr>
+              <td>Find the latest news about a specific vulnerability</td>
+              <td><span class="ph">Define</span></td>
+            </tr>
+            <tr>
+              <td>Find a colleague and share a security article</td>
+              <td><span class="ph">Define</span></td>
+            </tr>
+            <tr>
+              <td>Find information about a CVE</td>
+              <td><span class="ph">Define</span></td>
+            </tr>
+            <tr>
+              <td>Join a community and take part in a discussion</td>
+              <td><span class="ph">Define</span></td>
+            </tr>
+          </table>
+        </div>
+        <div class="g2" style="margin-top: 28px">
+          <div class="card">
+            <h3>Primary measures: objective</h3>
+            <ul class="plain">
+              <li>Task completion</li>
+              <li>Time on task</li>
+              <li>Error rate</li>
+              <li>Navigation success</li>
+              <li>Abandonment</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Qualitative: subjective</h3>
+            <ul class="plain">
+              <li>Preference</li>
+              <li>Satisfaction</li>
+              <li>Confidence</li>
+              <li>Perceived ease of use</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout">
+          User preference was treated as qualitative feedback. Task completion
+          and error rates were the primary indicators of usability. Someone
+          preferring the old dashboard doesn't mean the new one failed.
+        </div>
+      </div>
+    </section>
+
+    <section class="dark">
+      <div class="wrap">
+        <h2>Results</h2>
+        <p class="lead">
+          Only verified numbers go here. Never publish a metric you can't
+          source.
+        </p>
+        <div class="g3" style="margin-top: 28px">
+          <div class="card">
+            <span class="tag">Measured</span>
+            <p>Fill in only if you have data:</p>
+            <ul class="plain" style="margin-top: 8px">
+              <li><span class="ph">X%</span> increase in [verified metric]</li>
+              <li><span class="ph">X%</span> reduction in [verified metric]</li>
+              <li><span class="ph">X/10</span> users completed [task]</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="tag">Qualitative</span>
+            <p>
+              Stakeholders reported improved discoverability of security
+              resources.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Measurement limitation</span>
+            <p>
+              Formal post-launch analytics were not available during my
+              involvement, so quantitative product impact could not be
+              independently measured.
+            </p>
+          </div>
+        </div>
+        <h3 style="margin-top: 44px">Recommended success metrics</h3>
+        <div class="scroll">
+          <table class="tbl" style="background: #363944; color: #eee">
+            <tr>
+              <th>Goal</th>
+              <th>Metric</th>
+            </tr>
+            <tr>
+              <td>Awareness</td>
+              <td>Catalog visits</td>
+            </tr>
+            <tr>
+              <td>Discoverability</td>
+              <td>Search success rate</td>
+            </tr>
+            <tr>
+              <td>Engagement</td>
+              <td>Posts and comments per active user</td>
+            </tr>
+            <tr>
+              <td>Collaboration</td>
+              <td>Cross-department interactions</td>
+            </tr>
+            <tr>
+              <td>Usability</td>
+              <td>Task completion, time on task</td>
+            </tr>
+            <tr>
+              <td>Adoption</td>
+              <td>Monthly active users</td>
+            </tr>
+            <tr>
+              <td>Security awareness</td>
+              <td>Approved-tool adoption</td>
+            </tr>
+            <tr>
+              <td>Content engagement</td>
+              <td>News and article interactions</td>
+            </tr>
+          </table>
+        </div>
+        <div class="note" style="border-color: #6a6d7d; color: var(--soft)">
+          <b style="color: #fff">If you do have an engagement figure,</b> define
+          it: the percentage increase in monthly active users with at least one
+          meaningful interaction (post, comment, share, join, catalog
+          interaction) versus the baseline period. Show baseline and after
+          numbers.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Design decisions</h2>
+        <p class="lead">For each one: what evidence gave me confidence?</p>
+        <div class="g3" style="margin-top: 24px">
+          <div class="card">
+            <h3>Centralized catalog</h3>
+            <p><b>Problem.</b> Users struggled to discover resources.</p>
+            <p><b>Evidence.</b> Fragmented sources.</p>
+            <p><b>Decision.</b> Consolidate catalogs.</p>
+            <p><b>Why.</b> Reduce discovery friction.</p>
+          </div>
+          <div class="card">
+            <h3>Task-based navigation</h3>
+            <p>
+              <b>Problem.</b> Navigation reflected organizational structure.
+            </p>
+            <p><b>Evidence.</b> Users thought in tasks, not departments.</p>
+            <p><b>Decision.</b> Organize around activities.</p>
+            <p><b>Why.</b> Matches users' mental models.</p>
+          </div>
+          <div class="card">
+            <h3>Community features</h3>
+            <p><b>Problem.</b> Low cross-department collaboration.</p>
+            <p><b>Evidence.</b> Limited knowledge sharing.</p>
+            <p><b>Decision.</b> Communities, posts, comments, recognition.</p>
+            <p><b>Why.</b> Encourage participation.</p>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 72px">Challenge and trade-off</h2>
+        <div class="g3" style="margin-top: 24px">
+          <div class="card">
+            <span class="tag">Challenge</span>
+            <p>
+              The platform held a large amount of cybersecurity information.
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">Trade-off</span>
+            <p>
+              Showing everything on the dashboard would raise information
+              density and cognitive load.
+            </p>
+          </div>
+          <div class="card red">
+            <span class="tag" style="background: #fff; color: var(--red)"
+              >Decision</span
+            >
+            <p>
+              Prioritize the most relevant information. Use categories, search,
+              filters, and progressive disclosure for depth.
+            </p>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 72px">What I learned</h2>
+        <div class="g2" style="margin-top: 24px">
+          <p class="lead">
+            This project reinforced the importance of validating information
+            architecture before investing heavily in visual design. In complex
+            enterprise products, the biggest UX challenge is often how
+            information, workflows, and organizational structures connect, not
+            the interface itself.
+          </p>
+          <p class="lead">
+            An internal platform also needs to create value beyond information
+            access. To drive adoption, people need reasons to return,
+            contribute, and collaborate.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="end" id="end">
+      <div class="wrap">
+        <h2>Next project</h2>
+        <p style="font-size: 19px; max-width: 48ch; margin-bottom: 20px">
+          SaaS product optimization: research, dashboards, onboarding, and
+          workflow clarity.
+        </p>
+        <a class="btn solid" href="#">Read the next case study →</a>
+        <a class="btn" href="#">Back to portfolio</a>
+        <a class="btn" href="mailto:hello@example.com">Email me</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <span>Jefferson Adriano</span
+        ><span>AI-integrated product designer</span>
+      </div>
+    </footer>
+  </body>
+</html>
