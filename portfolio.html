@@ -96,6 +96,14 @@
         max-width: 62ch;
         color: var(--mute);
       }
+       .eyebrow {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--red);
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+          }
       .btn {
         display: inline-block;
         padding: 13px 24px;
@@ -148,6 +156,7 @@
       nav a.l {
         text-decoration: none;
         font-weight: 500;
+            font-size: 15px;
       }
       nav a.l:hover,
       nav a.on {
@@ -165,7 +174,7 @@
       }
       /* hero */
       .hero {
-        padding: 40px 0 72px;
+        padding: 24px 0 72px;
       }
       .hero h1 {
         font-size: clamp(40px, 7vw, 88px);
@@ -481,6 +490,70 @@
         flex-wrap: wrap;
         gap: 8px;
       }
+
+      /* Image modal popup */
+
+      .gallery-item {
+        cursor: pointer;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.02);
+      }
+
+      /* The Modal (background) */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.5s ease;
+      }
+
+      /* Modal content (image) */
+      .modal-content {
+        position: relative;
+        width: 45%;
+        height: auto;
+        border-radius: 5px;
+        overflow: hidden;
+        animation: zoomIn 0.5s;
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.6);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      .modal.show {
+        display: flex;
+        opacity: 1;
+      }
+
+      /* Close button */
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: #ffffff;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+
       @media (max-width: 860px) {
         section {
           padding: 56px 0;
@@ -508,7 +581,7 @@
         <a class="logo" href="index.html"><i></i>Jefferson Adriano</a>
         <ul>
           <li><a class="l" href="index.html">Home</a></li>
-          <li><a class="l on" href="#" aria-current="page">Portfolio</a></li>
+          <li><a class="l on" href="portfolio-02.html" aria-current="page">Portfolio-02</a></li>
         </ul>
       </div>
     </nav>
@@ -516,6 +589,9 @@
     <header class="hero">
       <div class="wrap">
         <!-- <a class="back" href="#">← All projects</a> -->
+          <span class="eyebrow" style="display: block; margin-top: 24px"
+              >CASE STUDY 01 · INTERNAL WEB APPLICATION</span
+            >
         <h1 style="margin-top: 24px">
           R-Defender: unifying cybersecurity knowledge and
           <span>collaboration</span> across Rakuten
@@ -527,12 +603,18 @@
         </p>
         <div class="shot">
           <img
+          class="gallery-item"
             src="asset/hero-img.png"
             alt="Screenshot of R-Defender homepage"
             width="100%"
             height="auto"
+            onclick="openModal('modal1')"
           />
         </div>
+         <div id="modal1" class="modal">
+              <span class="close" onclick="closeModal('modal1')">&times;</span>
+              <img src="asset/r-defender-homepage.png" class="modal-content" />
+            </div>
         <div
           style="padding: 56.25% 0 0 0; position: relative; margin-top: 40px"
         >
@@ -907,10 +989,12 @@ R-Defender
           </div>
           <div class="shot">
             <img
+            class="gallery-item"
               src="asset/new-homepage.jpg"
               alt="Screenshot of R-Defender homepage"
               width="100%"
               height="auto"
+              onclick="openModal('modal1')"
             />
           </div>
         </div>
@@ -1008,28 +1092,48 @@ R-Defender
         <div class="g3" style="margin-top: 20px">
           <div class="shot">
             <img
+              class="gallery-item"
               src="asset/dashboard.jpg"
               alt="Screenshot of R-Defender dashboard"
               width="100%"
               height="auto"
+              onclick="openModal('modal2')"
             />
           </div>
+         <div id="modal2" class="modal">
+              <span class="close" onclick="closeModal('modal2')">&times;</span>
+              <img src="asset/dashboard.jpg" class="modal-content" />
+            </div>  
+
+
           <div class="shot">
             <img
+            class="gallery-item"
               src="asset/catalog.jpg"
               alt="Screenshot of R-Defender catalog"
               width="100%"
               height="auto"
+              onclick="openModal('modal3')"
             />
           </div>
+          <div id="modal3" class="modal">
+              <span class="close" onclick="closeModal('modal3')">&times;</span>
+              <img src="asset/catalog.jpg" class="modal-content" />
+            </div>  
           <div class="shot">
             <img
+            class="gallery-item"
               src="asset/profile.jpg"
               alt="Screenshot of R-Defender profile"
               width="100%"
               height="auto"
+              onclick="openModal('modal4')"
             />
           </div>
+          <div id="modal4" class="modal">
+              <span class="close" onclick="closeModal('modal4')">&times;</span>
+              <img src="asset/profile.jpg" class="modal-content" />
+            </div>
         </div>
       </div>
     </section>
@@ -1069,10 +1173,16 @@ R-Defender
           <div>
             <h3>Branding</h3>
             <p style="color: var(--soft); margin-bottom: 12px">
-              Initially, red was proposed for the primary color, but I explained that its strong associations with urgency and errors could create unintended signals in the UI. I recommended royal blue instead, as it conveys trust, stability, and energy—making it more suitable for a user-friendly product.
+              Initially, red was proposed, but I explained that it's strong
+              associations with urgency and errors could create unintended
+              signals in the UI. I recommended royal blue instead, as it conveys
+              trust, stability, and energy— making it more suitable for a
+              user-friendly product.
             </p>
             <p style="color: var(--soft); margin-bottom: 12px">
-              The logo combines multiple shields, circuit elements, and the R-Defenders wordmark, while the eight dots represent the eight team members who built the platform.
+              The logo combines multiple shields, circuit elements, and the
+              R-Defenders wordmark; the eight dots represent the eight team
+              members who built the platform.
             </p>
             <p style="color: var(--soft); margin-bottom: 12px">
               Brand attributes: secure, intelligent, modern, technical, trusted.
@@ -1111,19 +1221,34 @@ R-Defender
             </tr>
             <tr>
               <td>Find the latest news about a specific vulnerability</td>
-              <td>User can locate the relevant vulnerability/news article, identify the <b>latest update/date</b>, and explain the key security information.</td>
+              <td>
+                User can locate the relevant vulnerability/news article,
+                identify the latest update/date, and explain the key security
+                information.
+              </td>
             </tr>
             <tr>
               <td>Find a colleague and share a security article</td>
-              <td>User can search for and select the correct colleague, find a relevant security article, and successfully share/send it without assistance.</td>
+              <td>
+                User can search for and select the correct colleague, find a
+                relevant security article, and successfully share/send it
+                without assistance.
+              </td>
             </tr>
             <tr>
               <td>Find information about a CVE</td>
-              <td>User can locate the CVE, identify its <b>CVE ID, severity, affected product/version, and vulnerability details</b>, and understand the key information.</td>
+              <td>
+                User can locate the CVE, identify its CVE ID, severity, affected
+                product/version, and vulnerability details, and understand the
+                key information.
+              </td>
             </tr>
             <tr>
               <td>Join a community and take part in a discussion</td>
-              <td>User can find a relevant security community, join it, locate a discussion, and successfully post a comment/reply.</td>
+              <td>
+                User can find a relevant security community, join it, locate a
+                discussion, and successfully post a comment/reply.
+              </td>
             </tr>
           </table>
         </div>
@@ -1168,8 +1293,11 @@ R-Defender
             <span class="tag">Measured</span>
             <p>Fill in only if you have data:</p>
             <ul class="plain" style="margin-top: 8px">
-              <li><span class="ph">15%</span> increase in engagement by Q1 2025 [verified metric]</li>
-              <li><span class="ph">0%</span> reduction in [verified metric]</li>
+              <li>
+                <span class="ph">15%</span> increase in engagement by Q1 2025
+                [verified metric]
+              </li>
+              <li><span class="ph">0</span> reduction in [verified metric]</li>
               <li><span class="ph">9/10</span> users completed [task]</li>
             </ul>
           </div>
@@ -1231,10 +1359,16 @@ R-Defender
           </table>
         </div>
         <div class="note" style="border-color: #6a6d7d; color: var(--soft)">
-          <p>The percentage increase in monthly active users with at least one
-          meaningful interaction (post, comment, product review, share, join, catalog
-          interaction) versus the baseline period.
-          </p>  
+          The percentage increase in monthly active users with at least one
+          meaningful interaction (post, comment, product review, share, join,
+          catalog interaction) versus the baseline period.
+           </p>  
+           <img style="margin-top: 10px;"
+            src="asset/analytics.jpg"
+            alt="Screenshot of R-Defender Analytics"
+            width="80%"
+            height="auto"
+          />
         </div>
       </div>
     </section>
@@ -1320,9 +1454,9 @@ R-Defender
           SaaS product optimization: research, dashboards, onboarding, and
           workflow clarity.
         </p>
-        <a class="btn solid" href="#">Read the next case study →</a>
+        <a class="btn solid" href="portfolio-02.html">Read the next case study →</a>
         <a class="btn" href="index.html">Back to home</a>
-        <a class="btn" href="mailto:adriano@jeje.com">Email me</a>
+        <a class="btn" href="mailto:adriano.jeje@gmail.com">Email me</a>
       </div>
     </section>
 
@@ -1332,5 +1466,23 @@ R-Defender
         ><span>AI-integrated product designer</span>
       </div>
     </footer>
+        <script>
+          function openModal(modalId, caption) {
+            let modal = document.getElementById(modalId);
+            modal.style.display = "flex";
+            modal.classList.add("show");
+            let message = modal.querySelector(".caption");
+            message.innerText = caption;
+          }
+
+          function closeModal(modalId) {
+            let modal = document.getElementById(modalId);
+            modal.classList.remove("show");
+            setTimeout(function () {
+              modal.style.display = "none";
+              modal.querySelector(".caption").innerText = "";
+            }, 300);
+          }
+        </script>
   </body>
 </html>
