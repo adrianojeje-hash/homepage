@@ -1,0 +1,1316 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font:
+          14px -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #fff;
+        color: #000;
+      }
+      img {
+        max-width: 100%;
+      }
+      [hidden]:not([hidden="until-found" i]) {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <title>Case study 2 – Unified field platform</title>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          :root {
+            --blue: #4cc1f2;
+            --navy: #181a52;
+            --grey: #c6c6c6;
+            --bg: #f2f6fb;
+            --card: #fff;
+            --text: #181a52;
+            --mute: #4f5278;
+            --line: #dbe2ee;
+            --deep: #181a52;
+            --ondeep: #eef2ff;
+            --softdeep: #b9bfe6;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+          }
+          @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+              --bg: #0d0e2c;
+              --card: #181a52;
+              --text: #eef2ff;
+              --mute: #b9bfe6;
+              --line: #2c2f75;
+              --deep: #080920;
+            }
+          }
+          :root[data-theme="dark"] {
+            --bg: #0d0e2c;
+            --card: #181a52;
+            --text: #eef2ff;
+            --mute: #b9bfe6;
+            --line: #2c2f75;
+            --deep: #080920;
+          }
+          * {
+            box-sizing: border-box;
+            margin: 0;
+          }
+          html {
+            scroll-behavior: smooth;
+          }
+          body {
+            background: var(--bg);
+            color: var(--text);
+            font:
+              400 16px/1.65 "Montserrat",
+              system-ui,
+              sans-serif;
+          }
+          h1,
+          h2,
+          h3 {
+            line-height: 1.12;
+            letter-spacing: -0.015em;
+            font-weight: 800;
+          }
+          a {
+            color: inherit;
+          }
+          :focus-visible {
+            outline: 3px solid var(--blue);
+            outline-offset: 3px;
+          }
+          .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+          }
+          section {
+            padding: 80px 0;
+          }
+          h2 {
+            font-size: clamp(26px, 3.8vw, 42px);
+            margin-bottom: 16px;
+            max-width: 22ch;
+          }
+          h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+            font-weight: 700;
+          }
+          .lead {
+            max-width: 64ch;
+            color: var(--mute);
+          }
+          .eyebrow {
+            display: inline-block;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--blue);
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+          }
+          .btn {
+            display: inline-block;
+            padding: 13px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid var(--blue);
+            color: var(--text);
+          }
+          .btn.fill {
+            background: var(--blue);
+            color: #181a52;
+          }
+          nav {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 5;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+          }
+          nav .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 68px;
+          }
+          .logo {
+            font:
+              800 20px "Bricolage Grotesque",
+              sans-serif;
+            text-decoration: none;
+            display: flex;
+            place-items: center;
+          }
+          .logo i {
+            display: inline-block;
+            width: 32px;
+            height: 39px;
+            background-image: url("asset/logo-icon.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-right: 8px;
+          }
+          nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            padding: 0;
+          }
+          nav a.l {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+          }
+          nav a.l:hover,
+          nav a.on {
+            color: var(--blue);
+          }
+          .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: var(--mute);
+            text-decoration: none;
+            font-size: 14px;
+          }
+          .hero {
+            padding: 24px 0 72px;
+          }
+          .hero h1 {
+            font-size: clamp(40px, 7vw, 88px);
+            font-weight: 800;
+            max-width: 15ch;
+          }
+          .hero h1 span {
+            color: var(--blue);
+          }
+          .hero .lead {
+            font-size: 18px;
+            margin-bottom: 34px;
+            color: var(--text);
+          }
+          .shot {
+            border: 2px dashed var(--grey);
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: var(--mute);
+            font-size: 14px;
+            padding: 22px;
+            min-height: 230px;
+            background: rgba(76, 193, 242, 0.06);
+          }
+          .hero .shot {
+            min-height: 360px;
+          }
+          .deep {
+            background: var(--deep);
+            color: var(--ondeep);
+          }
+          .deep .lead,
+          .deep .card p,
+          .deep .card li {
+            color: var(--softdeep);
+          }
+          .deep .card {
+            background: #22256b;
+          }
+          .deep .shot {
+            border-color: #5a5e9c;
+            color: var(--softdeep);
+          }
+          .snap dl {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 26px 24px;
+          }
+          .snap dt {
+            color: var(--softdeep);
+            font-size: 13px;
+          }
+          .snap dd {
+            margin: 2px 0 0;
+            font-weight: 600;
+            font-size: 15px;
+          }
+          .ph {
+            display: inline-block;
+            border: 1px dashed var(--blue);
+            color: var(--blue);
+            border-radius: 6px;
+            padding: 0 8px;
+            font-size: 14px;
+          }
+          .g2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+          }
+          .g3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+          }
+          .card {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 24px;
+            border: 1px solid var(--line);
+          }
+          .card p,
+          .card li {
+            color: var(--mute);
+            font-size: 15px;
+          }
+          .card.hi {
+            background: var(--blue);
+            border-color: var(--blue);
+          }
+          .card.hi p,
+          .card.hi h3 {
+            color: #181a52;
+          }
+          .tag {
+            display: inline-block;
+            background: var(--blue);
+            color: #181a52;
+            font-weight: 700;
+            font-size: 12px;
+            border-radius: 999px;
+            padding: 2px 12px;
+            margin-bottom: 10px;
+          }
+          ul.plain {
+            list-style: none;
+            padding: 0;
+          }
+          ul.plain li {
+            padding: 7px 0;
+            border-top: 1px solid var(--line);
+          }
+          ul.plain li:first-child {
+            border-top: 0;
+          }
+          .deep ul.plain li {
+            border-color: #3a3e86;
+          }
+          .callout {
+            margin-top: 28px;
+            border-left: 5px solid var(--blue);
+            padding: 4px 0 4px 20px;
+            max-width: 66ch;
+            font-weight: 600;
+          }
+          .note {
+            margin-top: 20px;
+            border: 1px dashed var(--grey);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--mute);
+            font-size: 14px;
+            max-width: 72ch;
+          }
+          .note b {
+            color: var(--text);
+          }
+          /* timeline */
+          .tl {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 28px;
+            counter-reset: t;
+          }
+          .tl div {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px 18px;
+            font-weight: 600;
+            font-size: 15px;
+            counter-increment: t;
+          }
+          .tl div::before {
+            content: counter(t, decimal-leading-zero);
+            display: block;
+            color: var(--blue);
+            font-weight: 800;
+            font-size: 13px;
+            margin-bottom: 2px;
+          }
+          .deep .tl div {
+            background: #22256b;
+            border-color: #3a3e86;
+          }
+          .big {
+            font-size: clamp(56px, 9vw, 112px);
+            font-weight: 800;
+            line-height: 1;
+            color: var(--blue);
+          }
+          /* evidence table */
+          .scroll {
+            overflow-x: auto;
+          }
+          .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 640px;
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-top: 22px;
+          }
+          .tbl th,
+          .tbl td {
+            text-align: left;
+            padding: 13px 18px;
+            font-size: 14.5px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+          }
+          .tbl th {
+            background: var(--navy);
+            color: #fff;
+            font-size: 13px;
+          }
+          .tbl td:first-child {
+            font-weight: 700;
+          }
+          .tbl td {
+            color: var(--mute);
+          }
+          .tbl td:first-child {
+            color: var(--text);
+          }
+          /* wireframe compare */
+          .cmp .card {
+            border-width: 2px;
+          }
+          .cmp .no {
+            border-color: var(--grey);
+          }
+          .cmp .yes {
+            border-color: var(--blue);
+          }
+          /* system */
+          .sw {
+            display: flex;
+            gap: 12px;
+            margin: 18px 0;
+            flex-wrap: wrap;
+          }
+          .sw div {
+            width: 130px;
+            height: 90px;
+            border-radius: 14px;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+          }
+          .type {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+          }
+          .spec {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 12px;
+          }
+          .spec .b1 {
+            background: var(--blue);
+            color: #181a52;
+            padding: 11px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+          }
+          .spec .b2 {
+            border: 2px solid var(--blue);
+            padding: 9px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+          }
+          .spec .chip {
+            background: rgba(76, 193, 242, 0.18);
+            color: var(--text);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 13px;
+          }
+          .spec .inp {
+            border: 1px solid var(--grey);
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 14px;
+            color: var(--mute);
+            min-width: 200px;
+            background: var(--card);
+          }
+          .spec .mini {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--blue);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--text);
+          }
+          .deep .spec .mini,
+          .deep .spec .inp {
+            background: #22256b;
+            color: #eef2ff;
+          }
+          .deep .spec .b2 {
+            color: #eef2ff;
+          }
+          .deep .spec .chip {
+            color: #eef2ff;
+          }
+          .end {
+            background: var(--blue);
+            color: #181a52;
+          }
+          .end h2 {
+            max-width: 16ch;
+          }
+          .end .btn {
+            border-color: #181a52;
+            color: #181a52;
+            margin: 10px 10px 0 0;
+          }
+          .end .btn.fill {
+            background: #181a52;
+            color: #fff;
+          }
+          footer {
+            background: var(--deep);
+            color: var(--softdeep);
+            padding: 26px 0;
+            font-size: 14px;
+          }
+          footer .wrap {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+          }
+
+          /* modal popup for images */
+
+          .gallery-item {
+            cursor: pointer;
+            transition: transform 0.5s ease;
+          }
+
+          .gallery-item:hover {
+            transform: scale(1.02);
+          }
+
+          /* The Modal (background) */
+          .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+          }
+
+          /* Modal content (image) */
+          .modal-content {
+            position: relative;
+            width: 60%;
+            height: auto;
+            border-radius: 5px;
+            overflow: hidden;
+            animation: zoomIn 0.5s;
+          }
+
+          @keyframes zoomIn {
+            from {
+              transform: scale(0.6);
+            }
+            to {
+              transform: scale(1);
+            }
+          }
+
+          .modal.show {
+            display: flex;
+            opacity: 1;
+          }
+
+          /* Close button */
+          .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+          }
+
+          @media (max-width: 860px) {
+            section {
+              padding: 56px 0;
+            }
+            .g2,
+            .g3,
+            .tl,
+            .snap dl {
+              grid-template-columns: 1fr;
+            }
+            nav ul {
+              gap: 16px;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <nav>
+          <div class="wrap">
+            <a class="logo" href="index.html"><i></i>Jefferson Adriano</a>
+            <ul>
+              <li><a class="l" href="index.html">Home</a></li>
+              <li>
+                <a class="l on" href="portfolio.html" aria-current="page"
+                  >Portfolio-01</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <header class="hero">
+          <div class="wrap">
+            <!-- <a class="back" href="#">← All projects</a> -->
+            <span class="eyebrow" style="display: block; margin-top: 24px"
+              >CASE STUDY 02 · ENTERPRISE HEALTHCARE SAAS</span
+            >
+            <h1>
+              One platform for a field team that was
+              <span>juggling too many tools</span>
+            </h1>
+            <p class="lead">
+              Replacing paper-based processes and a patchwork of disconnected
+              apps with a single, AI-assisted workspace for healthcare field
+              professionals, built on research with around 300 users.
+            </p>
+            <div class="shot">
+              <img
+                class="gallery-item"
+                src="asset/onco-homepage.png"
+                alt="Onco Homepage"
+                width="80%"
+                onclick="openModal('modal1')"
+              />
+            </div>
+            <div id="modal1" class="modal">
+              <span class="close" onclick="closeModal('modal1')">&times;</span>
+              <img src="asset/onco-homepage.png" class="modal-content" />
+            </div>
+          </div>
+        </header>
+
+        <section class="deep snap">
+          <div class="wrap">
+            <dl>
+              <div>
+                <dt>Project</dt>
+                <dd><span class="ph">Onco.ai</span></dd>
+              </div>
+              <div>
+                <dt>Company</dt>
+                <dd><span class="ph">Astrazeneca</span></dd>
+              </div>
+              <div>
+                <dt>Role</dt>
+                <dd>Lead designer</dd>
+              </div>
+              <div>
+                <dt>Platform</dt>
+                <dd>Enterprise web application</dd>
+              </div>
+              <div>
+                <dt>Industry</dt>
+                <dd>Healthcare / medical SaaS</dd>
+              </div>
+              <div>
+                <dt>Duration</dt>
+                <dd><span class="ph">4 months</span></dd>
+              </div>
+              <div>
+                <dt>Team</dt>
+                <dd>
+                  <span class="ph">Stakeholders / engineering / product</span>
+                </dd>
+              </div>
+              <div>
+                <dt>My contribution</dt>
+                <dd>
+                  User research, personas, journeys, wireframes, prototypes,
+                  design system, UI
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <span class="eyebrow">CONTEXT</span>
+            <h2>No standard platform, and paper everywhere</h2>
+            <p class="lead">
+              The organization lacked a standardized platform and relied heavily
+              on paper-based processes. The result was data loss,
+              disorganization, and an inconvenient experience for the people
+              doing the work.
+            </p>
+
+            <h3 style="margin-top: 44px">Constraints I had to design inside</h3>
+            <div class="g3">
+              <div class="card">
+                <span class="tag">Alignment</span>
+                <p>An abundance of unaligned ideas across stakeholders.</p>
+              </div>
+              <div class="card">
+                <span class="tag">Evidence</span>
+                <p>
+                  Limited existing user research and no structured way to
+                  collect feedback.
+                </p>
+              </div>
+              <div class="card">
+                <span class="tag">Resources</span>
+                <p>
+                  Tight timelines, no dedicated UX resources, and dependency on
+                  outdated systems.
+                </p>
+              </div>
+            </div>
+
+            <div class="callout" style="margin-top: 36px">
+              My role: I led the design by proposing a structured solution,
+              running user research to find pain points, building personas and
+              user journeys, and delivering wireframes, prototypes, and final
+              UI.
+            </div>
+          </div>
+        </section>
+
+        <section class="deep">
+          <div class="wrap">
+            <span class="eyebrow">PROCESS</span>
+            <h2>A structured plan in a project with no structure</h2>
+            <p class="lead">
+              I defined and documented all proposed tasks with the team and set
+              a clear timeline. Research came before any screens.
+            </p>
+            <div class="tl">
+              <div>User research</div>
+              <div>User testing</div>
+              <div>Journey mapping</div>
+              <div>Personas</div>
+              <div>Wireframing</div>
+              <div>Workshop</div>
+              <div>Analyze qualitative findings</div>
+              <div>Design system</div>
+              <div>Design prototypes</div>
+              <div>Usability testing</div>
+              <div>Validate results</div>
+              <div>Requirements definition and sign-off</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <span class="eyebrow">RESEARCH</span>
+            <h2>Listening to the people doing the work</h2>
+            <div class="g2" style="align-items: center; margin-top: 20px">
+              <div>
+                <div class="big">~300</div>
+                <p style="font-weight: 700; font-size: 20px">
+                  users interviewed in one month
+                </p>
+              </div>
+              <div>
+                <ul class="plain" style="color: var(--mute)">
+                  <li>
+                    <b style="color: var(--text)">Stakeholder mapping.</b>
+                    Mapped the organizational hierarchy and key decision-makers.
+                  </li>
+                  <li>
+                    <b style="color: var(--text)">Structured interviews.</b>
+                    Documented daily workflows and routines.
+                  </li>
+                  <li>
+                    <b style="color: var(--text)"
+                      >Market and competitor research.</b
+                    >
+                    Common tools and industry practices.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="shot" style="margin-top: 24px; min-height: 180px">
+              <img
+                src="asset/user-research.png"
+                alt="Interview notes / Affinity map"
+                width="50%"
+              />
+            </div>
+
+            <h3 style="margin-top: 56px">Three personas covered most users</h3>
+            <p class="lead" style="margin-bottom: 20px">
+              From the interviews I analyzed daily routines and built journey
+              maps and three personas representing the majority of users.
+            </p>
+            <div class="g3">
+              <div class="shot">
+                <img
+                  class="gallery-item"
+                  src="asset/persona-01.png"
+                  alt="Persona 1"
+                  onclick="openModal('modal3')"
+                />
+                Persona 1
+                <br /><span class="ph"
+                  >Hiroyuki · Medical Representatives
+                </span>
+              </div>
+
+              <div id="modal3" class="modal">
+                <span class="close" onclick="closeModal('modal3')"
+                  >&times;</span
+                >
+                <img src="asset/persona-01.png" class="modal-content" />
+              </div>
+
+              <div class="shot">
+                <img
+                  class="gallery-item"
+                  src="asset/persona-02.png"
+                  alt="Persona 2"
+                  onclick="openModal('modal4')"
+                />
+                Persona 2<br /><span class="ph"
+                  >Haruka · Medical Representatives
+                </span>
+              </div>
+              <div id="modal4" class="modal">
+                <span class="close" onclick="closeModal('modal4')"
+                  >&times;</span
+                >
+                <img src="asset/persona-02.png" class="modal-content" />
+              </div>
+              <div class="shot">
+                <img
+                  class="gallery-item"
+                  src="asset/persona-03.png"
+                  alt="Persona 3"
+                  onclick="openModal('modal5')"
+                />
+                Persona 3<br /><span class="ph"
+                  >Tahiku · Medical Representatives
+                </span>
+              </div>
+              <div id="modal5" class="modal">
+                <span class="close" onclick="closeModal('modal5')"
+                  >&times;</span
+                >
+                <img src="asset/persona-03.png" class="modal-content" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="deep">
+          <div class="wrap">
+            <span class="eyebrow">INSIGHTS</span>
+            <h2>Pain points, grouped by what they mean for the design</h2>
+            <p class="lead">
+              Fourteen raw pain points reduced to six themes. Each one led to a
+              design response.
+            </p>
+            <div class="scroll">
+              <table class="tbl">
+                <tr>
+                  <th>Theme</th>
+                  <th>What users told me</th>
+                  <th>Design response</th>
+                </tr>
+                <tr>
+                  <td>Too many tools</td>
+                  <td>
+                    Too many platforms, hard to navigate. The same data is
+                    entered in different platforms.
+                  </td>
+                  <td>
+                    One single platform, with external third-party apps
+                    integrated
+                  </td>
+                </tr>
+                <tr>
+                  <td>Time pressure</td>
+                  <td>
+                    Limited in-office time. Long to-do lists, balanced against
+                    field visits.
+                  </td>
+                  <td>
+                    Dashboard that surfaces today's priorities, and
+                    notifications
+                  </td>
+                </tr>
+                <tr>
+                  <td>Data trust</td>
+                  <td>
+                    Unsure whether data can be trusted. Some data is outdated.
+                  </td>
+                  <td>
+                    Doctor data profile with clear, consolidated information
+                  </td>
+                </tr>
+                <tr>
+                  <td>Findability</td>
+                  <td>Hard to locate what's needed across systems.</td>
+                  <td>Advanced search across the platform</td>
+                </tr>
+                <tr>
+                  <td>Reliability</td>
+                  <td>Veeva often hangs on weak wifi. Full of bugs.</td>
+                  <td>One lighter, consistent entry point</td>
+                </tr>
+                <tr>
+                  <td>Low adoption</td>
+                  <td>
+                    Little knowledge of the tools, and no visible value in using
+                    them.
+                  </td>
+                  <td>
+                    AI assistant, plus training videos inside the workflow
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card" style="margin-top: 20px">
+              <span class="tag">Context, not design scope</span>
+              <p>
+                Users also mentioned paper-heavy documents, unpredictable
+                traffic to clinics, hard-to-find parking, and long waits to see
+                doctors. Software can't remove traffic, but it can reduce paper
+                and make waiting time more productive. These shaped the design
+                for mobile-friendly, time-limited use.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <span class="eyebrow">EXPLORATION</span>
+            <h2>The AI concept that got rejected, and what I learned</h2>
+            <div class="g2 cmp" style="margin-top: 24px">
+              <div class="card no">
+                <span class="tag" style="background: var(--grey)"
+                  >Wireframe 1 · Rejected</span
+                >
+                <h3>Chatbot AI notifications</h3>
+                <p>
+                  The first proposal centered on an AI chatbot with
+                  notifications. In the review meeting, stakeholders did not
+                  align with the idea of an AI operator platform.
+                </p>
+                <div class="shot" style="margin-top: 16px; min-height: 170px" ;>
+                  <img
+                    src="asset/first-wireframe.png"
+                    alt="First wireframe"
+                    width="70%"
+                  />
+                </div>
+              </div>
+              <div class="card yes">
+                <span class="tag">Wireframe 2 · Approved</span>
+                <h3>Unified platform, AI as one capability</h3>
+                <p>
+                  I centralized multiple applications into one platform: AI
+                  assistant, advanced search, dashboards, workplace tools, Power
+                  BI, Teams chat, scheduling, gamification data, user inputs,
+                  notifications, and training videos.
+                </p>
+                <div class="shot" style="margin-top: 16px; min-height: 170px" ;>
+                  <img
+                    src="asset/second-wireframe.png"
+                    alt="Second wireframe"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="callout">
+              What changed: I stopped leading with the AI and led with the
+              problem. AI moved from being the product to being one tool that
+              helps people finish their work. That was the version stakeholders
+              trusted.
+            </div>
+          </div>
+        </section>
+
+        <section class="deep">
+          <div class="wrap">
+            <span class="eyebrow">SOLUTION</span>
+            <h2>Six high-priority features, each tied to a pain point</h2>
+            <div class="g3" style="margin-top: 24px">
+              <div class="card">
+                <h3>One single platform</h3>
+                <p>Reduces tool-switching and duplicate data entry.</p>
+              </div>
+              <div class="card">
+                <h3>External third-party apps</h3>
+                <p>Power BI, Teams chat and scheduling inside the workspace.</p>
+              </div>
+              <div class="card">
+                <h3>AI assistant</h3>
+                <p>Helps people get answers and complete tasks faster.</p>
+              </div>
+              <div class="card">
+                <h3>Notifications</h3>
+                <p>Keeps priorities visible during limited in-office hours.</p>
+              </div>
+              <div class="card">
+                <h3>Advanced search</h3>
+                <p>One search across the data people used to hunt for.</p>
+              </div>
+              <div class="card">
+                <h3>Dashboard</h3>
+                <p>A starting point built around the day's priorities.</p>
+              </div>
+            </div>
+            <!-- <div class="shot" style="margin-top: 24px">
+              Diagram: UX flow derived from data metrics and user pain points
+            </div> -->
+
+            <h3 style="margin-top: 56px">Key screens</h3>
+            <div class="g3" style="margin-top: 14px">
+              <div>
+                <div class="shot">
+                  <img
+                    class="gallery-item"
+                    src="asset/onco-homepage.png"
+                    alt="Homepage"
+                    onclick="openModal('modal6')"
+                  />
+                </div>
+                <div id="modal6" class="modal">
+                  <span class="close" onclick="closeModal('modal6')"
+                    >&times;</span
+                  >
+                  <img src="asset/onco-homepage.png" class="modal-content" />
+                </div>
+                <p
+                  style="
+                    margin-top: 10px;
+                    color: var(--softdeep);
+                    font-size: 14px;
+                  "
+                >
+                  <b style="color: #fff">Decision.</b> One home that brings
+                  together priorities, updates and tools.
+                </p>
+              </div>
+              <div>
+                <div class="shot">
+                  <img
+                    class="gallery-item"
+                    src="asset/advance-search.png"
+                    alt="Advanced Search"
+                    onclick="openModal('modal7')"
+                  />
+                </div>
+                <div id="modal7" class="modal">
+                  <span class="close" onclick="closeModal('modal7')"
+                    >&times;</span
+                  >
+                  <img src="asset/advance-search.png" class="modal-content" />
+                </div>
+                <p
+                  style="
+                    margin-top: 10px;
+                    color: var(--softdeep);
+                    font-size: 14px;
+                  "
+                >
+                  <b style="color: #fff">Decision.</b> Find data without knowing
+                  which system holds it.
+                  <!-- <span class="ph">Add filters you designed</span> -->
+                </p>
+              </div>
+              <div>
+                <div class="shot">
+                  <img
+                    class="gallery-item"
+                    src="asset/doctor-profile.png"
+                    alt="Doctor Profile"
+                    onclick="openModal('modal8')"
+                  />
+                </div>
+                <div id="modal8" class="modal">
+                  <span class="close" onclick="closeModal('modal8')"
+                    >&times;</span
+                  >
+                  <img src="asset/doctor-profile.png" class="modal-content" />
+                </div>
+                <p
+                  style="
+                    margin-top: 10px;
+                    color: var(--softdeep);
+                    font-size: 14px;
+                  "
+                >
+                  <b style="color: #fff">Decision.</b> Consolidated, trustworthy
+                  information before a visit.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <span class="eyebrow">DESIGN SYSTEM</span>
+            <h2>Trust, stability, and care, built into the system</h2>
+            <div class="g2" style="margin-top: 20px">
+              <div>
+                <h3>Logo</h3>
+                <div
+                  class="shot"
+                  style="min-height: 150px; margin-bottom: 14px"
+                >
+                  <img src="asset/onco-logo.png" alt="" />
+                </div>
+                <ul class="plain" style="color: var(--mute)">
+                  <li>
+                    <b style="color: var(--text)">Circle.</b> Wholeness, care,
+                    continuity.
+                  </li>
+                  <li>
+                    <b style="color: var(--text)">Rising bars.</b> Data,
+                    dashboards, improvement.
+                  </li>
+                  <li>
+                    <b style="color: var(--text)">Upward curve.</b> Inspiration,
+                    recovery, progress.
+                  </li>
+                </ul>
+                <p
+                  style="margin-top: 10px; color: var(--mute); font-size: 15px"
+                >
+                  Minimal and modern, suited to enterprise medical SaaS.
+                </p>
+              </div>
+              <div>
+                <h3>Color</h3>
+                <div class="sw">
+                  <div style="background: #4cc1f2; color: #181a52">
+                    #4CC1F2<br />Primary
+                  </div>
+                  <div style="background: #181a52; color: #fff">
+                    #181A52<br />Secondary
+                  </div>
+                  <div style="background: #c6c6c6; color: #181a52">
+                    #C6C6C6<br />Neutral
+                  </div>
+                </div>
+                <p style="color: var(--mute); font-size: 15px">
+                  Royal blue conveys trust, confidence, and professionalism,
+                  which is essential in healthcare. The dark blue brings
+                  reliability and stability, signaling long-term commitment to
+                  patient care and data integrity.
+                </p>
+                <h3 style="margin-top: 24px">Typography</h3>
+                <div class="type">Montserrat</div>
+                <p style="color: var(--mute); font-size: 15px; margin-top: 6px">
+                  Clean geometric sans-serif that stays legible in dense
+                  dashboards.
+                </p>
+              </div>
+            </div>
+
+            <h3 style="margin-top: 44px">Components</h3>
+            <div class="card" style="margin-top: 12px">
+              <div class="spec">
+                <span class="b1">Primary action</span
+                ><span class="b2">Secondary</span><span class="chip">Tag</span
+                ><span class="chip">Filter</span>
+                <div class="inp">Search doctors, products…</div>
+                <div class="mini">Notification: new visit scheduled</div>
+              </div>
+              <p style="margin-top: 14px; font-size: 14px">
+                Replace these specimens with the real components from your Figma
+                library.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="deep">
+          <div class="wrap">
+            <span class="eyebrow">VALIDATION AND OUTCOME</span>
+            <h2>Tested, validated, and signed off</h2>
+            <p class="lead">
+              The process ended with usability testing, validation of results,
+              and user requirements sign-off. Only show what you can verify.
+            </p>
+            <div class="g3" style="margin-top: 24px">
+              <div class="card">
+                <span class="tag">Validation</span>
+                <p>
+                  Usability testing on prototypes, then sign-off on the user
+                  requirements definition.
+                </p>
+                <p style="margin-top: 8px">
+                  <span class="ph">Tasks tested · 322 of users</span>
+                </p>
+              </div>
+              <div class="card">
+                <span class="tag">Measured</span>
+                <p>On going:</p>
+                <p style="margin-top: 8px">
+                  <span class="ph">N/A</span> task completion· <br />
+                  <span class="ph">N/A</span> time on task· <br />
+                  <span class="ph">N/A</span> fewer errors
+                </p>
+              </div>
+              <div class="card hi">
+                <span class="tag" style="background: #181a52; color: #fff"
+                  >Qualitative</span
+                >
+                <h3>Approved direction</h3>
+                <p>
+                  Stakeholders aligned on the unified-platform direction after
+                  the first AI concept was rejected.
+                </p>
+              </div>
+            </div>
+            <!-- <div
+              class="note"
+              style="border-color: #5a5e9c; color: var(--softdeep)"
+            >
+              <b style="color: #fff">Reminder:</b> if you have no post-launch
+              numbers, say so here, the same way as in your first case study.
+            </div> -->
+
+            <h3 style="margin-top: 48px">What I learned</h3>
+            <div class="g2" style="margin-top: 12px">
+              <p class="lead">
+                Reframing matters as much as designing. The AI concept failed as
+                the headline but worked as a capability, because I tied it to
+                problems stakeholders already felt.
+              </p>
+              <p class="lead">
+                With limited resources and no dedicated UX team, structured
+                research and a clear plan did more for alignment than polished
+                mockups.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="end" id="end">
+          <div class="wrap">
+            <h2>Let's build something useful.</h2>
+            <p style="font-size: 18px; max-width: 48ch">
+              Have a product challenge you'd like to discuss? I'd be happy to
+              connect.
+            </p>
+            <a class="btn fill" href="mailto:adriano.jeje@gmail.com"
+              >Email me</a
+            >
+            <a class="btn" href="https://www.linkedin.com/in/jeffersonadriano/"
+              >LinkedIn</a
+            >
+            <a class="btn" href="portfolio.html"
+              >Read the previous case study →</a
+            >
+          </div>
+        </section>
+
+        <footer>
+          <div class="wrap">
+            <span>Jefferson Adriano</span
+            ><span>AI-integrated product designer</span>
+          </div>
+        </footer>
+
+        <script>
+          function openModal(modalId, caption) {
+            let modal = document.getElementById(modalId);
+            modal.style.display = "flex";
+            modal.classList.add("show");
+            let message = modal.querySelector(".caption");
+            message.innerText = caption;
+          }
+
+          function closeModal(modalId) {
+            let modal = document.getElementById(modalId);
+            modal.classList.remove("show");
+            setTimeout(function () {
+              modal.style.display = "none";
+              modal.querySelector(".caption").innerText = "";
+            }, 300);
+          }
+        </script>
+      </body>
+    </html>
+  </body>
+</html>
